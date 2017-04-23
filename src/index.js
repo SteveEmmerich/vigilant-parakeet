@@ -3,9 +3,9 @@ export default class reverser {
 
   }
   reverse(_input) {
-    let sp = _input.split();
+    let sp = _input.split('');
     let rev = sp.reverse();
-    let fin = rev.join()
+    let fin = rev.join('')
     return fin;
   }
 

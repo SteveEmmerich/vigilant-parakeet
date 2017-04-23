@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 import svelte from 'rollup-plugin-svelte';
 
 export default {
-  entry: './main.js',
+  entry: './src/index.js',
   dest: 'dist/main.js',
   format: 'es',
   plugins: [
