@@ -17,4 +17,4 @@ test:
     - yarn test | tap-xunit > $CIRCLE_TEST_REPORTS/reports/ava.xml
   post:
     - yarn run coverage > $CIRCLE_ARTIFACTS/coverage-report
-    - $CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < $CIRCLE_ARTIFACTS/coverage-report
+    - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < $CIRCLE_ARTIFACTS/coverage-report
