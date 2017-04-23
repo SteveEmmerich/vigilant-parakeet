@@ -3,6 +3,7 @@ machine:
     version: 6.1.0
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+    CODECLIMATE_REPO_TOKEN: fb3e005b21dad7b145170fa1a05772a4835827bb0e4106e912e0535ca51550aa
 
 dependencies:
   override:
