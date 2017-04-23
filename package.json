@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "BABEL_ENV=test ava",
-    "build": "BABEL_ENV=build rollup -c"
+    "test": "BABEL_ENV=test nyc ava --tap",
+    "build": "BABEL_ENV=build rollup -c",
+    "coverage": "nyc report --reporter=html"
   },
   "devDependencies": {
     "@ava/babel-preset-stage-4": "^1.0.0",
@@ -17,7 +18,8 @@
     "nyc": "^10.2.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-svelte": "^1.8.0",
-    "rollup-watch": "^3.2.2"
+    "rollup-watch": "^3.2.2",
+    "tap-xunit": "^1.7.0"
   },
   "ava": {
     "files": [
