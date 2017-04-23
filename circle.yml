@@ -6,6 +6,7 @@ machine:
 
 dependencies:
   override:
+    - npm install -g codeclimate-test-reporter
     - yarn
   cache_directories:
     - ~/.cache/yarn
