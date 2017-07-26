@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "BABEL_ENV=test nyc ava --tap",
+    "test": "BABEL_ENV=test nyc ava ",
     "build": "BABEL_ENV=build rollup -c",
     "coverage": "nyc report --reporter=lcov --reporter=text-lcov --reporter=html"
   },

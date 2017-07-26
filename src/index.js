@@ -1,4 +1,4 @@
-export default class reverser {
+/*export default class reverser {
   constructor() {
 
   }
@@ -9,4 +9,7 @@ export default class reverser {
     return fin;
   }
 
+}*/
+export default function reverser (_input) { 
+  return _input.split('').reverse().join('');
 }

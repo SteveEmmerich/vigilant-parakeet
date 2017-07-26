@@ -4,7 +4,7 @@ import svelte from 'rollup-plugin-svelte';
 export default {
   entry: './src/index.js',
   dest: 'dist/main.js',
-  format: 'es',
+  format: 'cjs',
   plugins: [
     babel({
       include: ['./src/**/*.js'],
