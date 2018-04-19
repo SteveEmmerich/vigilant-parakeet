@@ -15,7 +15,10 @@ jobs:
           command: yarn
       - run:
           name: Code Climate reporter
-          command: yarn add global codeclimate-test-reporter
+          command: yarn global add codeclimate-test-reporter
+      - run:
+          name: ls
+          command: ls node_modules | grep xunit
       - save_cache:
           key: v1-{{ arch }}-cache-{{ checksum "package.json"}}
           paths:
