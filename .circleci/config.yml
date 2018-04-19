@@ -16,9 +16,6 @@ jobs:
       - run:
           name: Code Climate reporter
           command: yarn global add codeclimate-test-reporter
-      - run:
-          name: ls
-          command: ls node_modules | grep xunit
       - save_cache:
           key: v1-{{ arch }}-cache-{{ checksum "package.json"}}
           paths:
@@ -34,8 +31,11 @@ jobs:
           name: yarn install
           command: yarn
       - run:
+          name: ls
+          command: ls node_modules | grep xunit
+      - run:
           name: Test using yarn
-          command: yarn test | tap-xunit > ava.xml
+          command: yarn test | node_modules/tap-xunit > ava.xml
       - run:
           name: Run coverage report
           command: yarn run converage > coverage-report
