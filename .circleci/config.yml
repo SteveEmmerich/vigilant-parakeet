@@ -43,10 +43,10 @@ jobs:
             ./cc-test-reporter after-build -d --coverage-input-type lcov --exit-code $?
       - store_artifacts:
           path: results.xml
-          prefix: test-results/ava
+          destination: test-results/ava
       - store_artifacts:
-          path: converage-report
-          prefix: reports
+          path: converage-report.lcov
+          destination: reports
       - store_test_results:
           path: test-results
 workflows:
