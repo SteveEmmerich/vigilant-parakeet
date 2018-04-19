@@ -34,7 +34,7 @@ jobs:
             chmod +x ./cc-test-reporter
       - run:
           name: Test using yarn
-          command: yarn test | npx tap-xunit > ava.xml
+          command: yarn test | npx tap-xunit > results.xml
       - run:
           name: Run coverage report
           command: |
@@ -42,13 +42,13 @@ jobs:
             yarn run coverage > coverage-report.lcov
             ./cc-test-reporter after-build -d --coverage-input-type lcov --exit-code $?
       - store_artifacts:
-          path: ava.xml
-          prefix: reports
+          path: results.xml
+          prefix: test-results/ava
       - store_artifacts:
           path: converage-report
           prefix: reports
       - store_test_results:
-          path: ava.xml
+          path: test-results
 workflows:
   version: 2
   build_and_test:
