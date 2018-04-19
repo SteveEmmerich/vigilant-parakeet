@@ -1,0 +1,39 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.1.0
+    steps:
+      - checkout
+      - run:
+          name: yarn install
+          command: yarn
+      - run:
+          name: Code Climate reporter
+          command: yarn add global codeclimate-test-reporter
+      - save_cache:
+          key: v1-{{ arch }}-cache-{{ checksum "package.json"}}
+          paths:
+            - ./node_modules
+            - ~/.config/yarn/global
+  test:
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ arch }}-cache-{{ checksum "package.json" }}
+      - run:
+          name: Create test reports directory
+          command: mkdir -p $CIRCLE_TEST_REPORTS/reports
+      - run:
+          name: Test using yarn
+          command: yarn test | tap-xunit > $CIRCLE_TEST_REPORTS/reports/ava.xml
+      - run:
+          name: Run coverage report
+          command: yarn run converage > $CIRCLE_ARTIFACTS/coverage-report
+      - run:
+          name: Send code climate test coverage
+          command: CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < $CIRCLE_ARTIFACTS/coverage-report
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
