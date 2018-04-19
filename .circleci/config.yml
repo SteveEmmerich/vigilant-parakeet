@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/npm-lib
     docker:
       - image: circleci/node:6.1.0
     steps:
@@ -17,6 +18,8 @@ jobs:
             - ./node_modules
             - ~/.config/yarn/global
   test:
+     docker:
+      - image: circleci/node:6.1.0
     steps:
       - checkout
       - restore_cache:
@@ -37,3 +40,14 @@ jobs:
           path: ~/reports
       - store_artifacts:
           path: ~/reports
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
