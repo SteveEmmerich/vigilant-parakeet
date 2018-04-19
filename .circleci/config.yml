@@ -38,7 +38,7 @@ jobs:
           command: yarn test | npx tap-xunit > ava.xml
       - run:
           name: Run coverage report
-          command: yarn run converage > coverage-report
+          command: yarn run coverage > coverage-report
       - run:
           name: Send code climate test coverage
           command: CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < coverage-report
