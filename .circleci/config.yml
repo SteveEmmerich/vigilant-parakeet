@@ -1,4 +1,4 @@
-#Yaml Config for CircleCI
+# .circleci/config.yml
 defaults: &defaults
   working_directory: ~/npm-lib
   docker:
@@ -27,7 +27,7 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-{{ arch }}-cache-{{ checksum "package.json" }}
-       - run:
+      - run:
           name: yarn install
           command: yarn
       - run:
