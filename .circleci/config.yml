@@ -26,21 +26,22 @@ jobs:
       - restore_cache:
           key: v1-{{ arch }}-cache-{{ checksum "package.json" }}
       - run:
-          name: Create test reports directory
-          command: mkdir -p $CIRCLE_TEST_REPORTS/reports
-      - run:
           name: Test using yarn
-          command: yarn test | tap-xunit > $CIRCLE_TEST_REPORTS/reports/ava.xml
+          command: yarn test | tap-xunit > ava.xml
       - run:
           name: Run coverage report
-          command: yarn run converage > $CIRCLE_ARTIFACTS/coverage-report
+          command: yarn run converage > coverage-report
       - run:
           name: Send code climate test coverage
-          command: CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < $CIRCLE_ARTIFACTS/coverage-report
+          command: CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < coverage-report
       - store_test_results:
-          path: ~/reports
+          path: ava.xml
       - store_artifacts:
-          path: ~/reports
+          path: ava.xml
+          prefix: reports
+      - store_artifacts:
+          path: converage-report
+          prefix: reports
 workflows:
   version: 2
   build_and_test:
