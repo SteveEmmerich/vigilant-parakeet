@@ -18,7 +18,8 @@ jobs:
             - ./node_modules
             - ~/.config/yarn/global
   test:
-     docker:
+    working_directory: ~/npm-lib
+    docker:
       - image: circleci/node:6.1.0
     steps:
       - checkout
