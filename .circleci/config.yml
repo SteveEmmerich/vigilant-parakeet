@@ -35,7 +35,7 @@ jobs:
           command: ls node_modules | grep xunit
       - run:
           name: Test using yarn
-          command: yarn test | node_modules/tap-xunit > ava.xml
+          command: yarn test | npx tap-xunit > ava.xml
       - run:
           name: Run coverage report
           command: yarn run converage > coverage-report
