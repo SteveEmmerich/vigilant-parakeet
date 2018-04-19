@@ -23,33 +23,34 @@ jobs:
             - ~/.config/yarn/global
   test:
     <<: *defaults
+    environment:
+      CC_TEST_REPORTER_ID: $CODECLIMATE_REPO_TOKEN
     steps:
       - checkout
       - restore_cache:
           key: v1-{{ arch }}-cache-{{ checksum "package.json" }}
       - run:
-          name: yarn install
-          command: yarn
-      - run:
-          name: ls
-          command: ls node_modules | grep xunit
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
       - run:
           name: Test using yarn
           command: yarn test | npx tap-xunit > ava.xml
       - run:
           name: Run coverage report
-          command: yarn run coverage > coverage-report
-      - run:
-          name: Send code climate test coverage
-          command: CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < coverage-report
-      - store_test_results:
-          path: ava.xml
+          command: |
+          ./cc-test-reporter before-build
+          yarn run coverage > coverage-report
+          ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       - store_artifacts:
           path: ava.xml
           prefix: reports
       - store_artifacts:
           path: converage-report
           prefix: reports
+      - store_test_results:
+          path: ava.xml
 workflows:
   version: 2
   build_and_test:
