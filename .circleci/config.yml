@@ -1,9 +1,13 @@
+#Yaml Config for CircleCI
+defaults: &defaults
+  working_directory: ~/npm-lib
+  docker:
+    - image: circleci/node:8
+
 version: 2
 jobs:
   build:
-    working_directory: ~/npm-lib
-    docker:
-      - image: circleci/node:8
+    <<: *defaults
     steps:
       - checkout
       - run:
@@ -18,13 +22,14 @@ jobs:
             - ./node_modules
             - ~/.config/yarn/global
   test:
-    working_directory: ~/npm-lib
-    docker:
-      - image: circleci/node:8
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
           key: v1-{{ arch }}-cache-{{ checksum "package.json" }}
+       - run:
+          name: yarn install
+          command: yarn
       - run:
           name: Test using yarn
           command: yarn test | tap-xunit > ava.xml
