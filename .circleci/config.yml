@@ -23,8 +23,6 @@ jobs:
             - ~/.config/yarn/global
   test:
     <<: *defaults
-    environment:
-      CC_TEST_REPORTER_ID: $CODECLIMATE_REPO_TOKEN
     steps:
       - checkout
       - restore_cache:
