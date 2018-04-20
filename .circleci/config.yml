@@ -33,8 +33,11 @@ jobs:
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
       - run:
+          name: Setup test output dir
+          command: mkdir -p test-results/ava
+      - run:
           name: Test using yarn
-          command: yarn test | npx tap-xunit > results.xml
+          command: yarn test | npx tap-xunit > test-results/ava/results.xml
       - run:
           name: Run coverage report
           command: |
@@ -42,10 +45,10 @@ jobs:
             yarn run coverage > coverage-report.lcov
             ./cc-test-reporter after-build -d --coverage-input-type lcov --exit-code $?
       - store_artifacts:
-          path: results.xml
-          destination: test-results/ava
+          path: test-results/ava/results.xml
+          destination: test-results/ava/
       - store_artifacts:
-          path: converage-report.lcov
+          path: coverage-report.lcov
           destination: reports
       - store_test_results:
           path: test-results
